@@ -1,15 +1,20 @@
 import HelloWorld from "./components/helloworld"
-
+import LearnHooks from "./components/LearnHooks"
+import LearnJSX from "./components/LearnJSX"
+import LearnReact from "./components/LearnReact"
+import CounterApp from "./components/CounterApp"
 function App() {
   
 
   return (
     <>
-      <h1>Learn React</h1>
-      <HelloWorld />
-      <LearnReact />
+      {/* <HelloWorld />
+      <LearnJSX />
+      <LearnHooks/> */}
+      <CounterApp />
     </>
   )
 }
+
 
 export default App
