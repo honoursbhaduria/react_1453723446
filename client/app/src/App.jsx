@@ -5,6 +5,57 @@ function App() {
   const [books, setBooks] = useState([]);
   const [title, setTitle] = useState('');
   const [releaseYear, setReleaseYear] = useState(0);
+  const [newTitle, setNewTitle] = useState({});
+
+
+  const deleteBook = async (pk ) => {
+      console.log('Deleting book:', pk);
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/books/${pk}/`, {
+          method: 'DELETE'
+        });
+
+      if (response.ok) {
+        
+        setBooks((prevBooks) => prevBooks.filter((book) => book.id !== pk));
+      } else {
+        console.error('Failed to delete book');
+      }
+    } catch (error) {
+      console.error('Error deleting book:', error);
+    }
+  };
+
+  
+  const updateTitle = async (pk , release_year) => {
+    console.log('Updating book:', pk, newTitle);
+
+    const bookData = {
+      title: newTitle, 
+      release_year
+    };
+  
+
+    
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/books/${pk}/`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookData)
+      });
+
+      const data = await response.json();
+      setBooks((prev) =>
+        prev.map((book) => (book.id === pk ? data : book))  //used switch case 
+      );
+    
+    } catch (error) {
+      console.error('Error updating book:', error);
+    }
+  };
 
   const addBook = async () => {
     console.log('Adding book:', title, releaseYear);
@@ -79,6 +130,14 @@ function App() {
             <p>
               <strong>Release Year:</strong> {book.release_year}
             </p>
+            <input type="text" 
+            placeholder='Update Book Title..'
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            />
+            <button onClick={() => updateTitle(book.id, book.release_year)}>Change Title</button>
+            <button onClick={() => deleteBook(book.id)}>Delete</button>
+
           </div>
         ))}
       </div>
