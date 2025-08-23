@@ -1,12 +1,36 @@
-# React + Vite
+### 📚 Book Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple **Book Adding and Listing App** built using:
 
-Currently, two official plugins are available:
+- **Django + Django REST Framework** (Backend API)
+- **React + Vite** (Frontend UI)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project demonstrates a basic **full-stack CRUD** setup where users can add and view books.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### ⚡ Features
+
+- Add new books with title, author, and description  
+- View all books in a list  
+- Django REST API backend for data handling  
+- React frontend for interactive UI  
+- CORS enabled to connect frontend and backend  
+
+---
+
+### 🛠 Tech Stack
+
+#### Backend
+- Python 3.11
+- Django 
+- Django REST Framework  
+
+#### Frontend
+- React (Vite)  
+---
+
+
+Contributing
+
+Pull requests are welcome!

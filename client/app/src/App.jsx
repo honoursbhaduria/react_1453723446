@@ -1,9 +1,38 @@
-import { use, useState } from 'react'
+import {useState, useEffect } from 'react'
 
 import './App.css'
 
 function App() {
   const[books, setBooks] = useState([])
+
+  const [title,setTitle] = useState('')
+  const [releaseYear,setReleaseYear] = useState(0)
+
+  const addBook = async () => {
+      console.log('Adding book:', title, releaseYear)
+      const bookData = {
+        title,
+        release_year: releaseYear
+      };
+      try{``
+      const response = await fetch('http://127.0.0.1:8000/api/books/create/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookData)
+      });
+      if (response.ok) {
+        const newBook = await response.json();
+        setBooks((prevBooks) => [...prevBooks, newBook]);
+        setTitle('');
+        setReleaseYear(0);
+      } 
+    } catch (error) {
+      console.error('Error adding book:', error)
+    }
+    
+  }
 
 
   useEffect(() => {
@@ -12,7 +41,7 @@ function App() {
 
   const fetchBooks = async () => {
     try{
-      const response = await fetch('http://localhost:3000/books')
+      const response = await fetch('http://localhost:8000/api/books')
       const data = await response.json()
       console.log(data)
       setBooks(data)
@@ -27,11 +56,11 @@ function App() {
         Books website 
       </h1>
       <div>
-        <input type="text" placeholder='Book title....' />
+        <input type="text" placeholder='Book title....'  onChange={(e) => setTitle(e.target.value)} />
         <br />
-        <input type="number" placeholder='Release Date....' />
+        <input type="number" placeholder='Release Year....' onChange={(e) => setReleaseYear(e.target.value)} />
         <br />
-        <button>Add Book</button>
+        <button onClick={addBook}>Add Book</button>
       </div>
       <ul>
         {books.map((book) => (
@@ -39,8 +68,8 @@ function App() {
             <p>BOOK TITLE:</p>
             {book.title} 
             <br />
-            <p>RELEASE DATE:</p>
-            {book.release_date}
+            <p>RELEASE YEAR:</p>
+            {book.release_year}
           </li>
         ))}
       </ul>
